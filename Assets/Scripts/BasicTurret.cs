@@ -10,7 +10,19 @@ public class BasicTurret : MonoBehaviour
     private float rofTimer = 0;
     private Transform target;
     public Transform turretPivot;
+    public GameObject projectilePrefab;
+    public Transform projectileSpawnPos;
     public float radius = 1;
+    public float projectileSpeed;
+    public float projectileDamage;
+    public float projectileHealth;
+    public enum TargetingType
+    {
+        FIRST,
+        LAST,
+        CLOSE
+    }
+    public TargetingType currentTargetType = TargetingType.FIRST;
     void Update()
     {
 
@@ -21,16 +33,27 @@ public class BasicTurret : MonoBehaviour
 
         //Update shoot
         rofTimer+= Time.deltaTime;
-        if(rofTimer >= 1 /rateOfFire)
+        if(rofTimer >= 1 /rateOfFire && target != null)
         {
             rofTimer = 0;
-            if(target != null){target.gameObject.GetComponent<Enemy>().DestroyEnemy();}
+            ShootProjectile();
         }
         //Update target
         targetingTimer += Time.deltaTime;
         if(targetingTimer < targetingRefreshRate){return;}
         targetingTimer = 0;
-        target = GetClosestEnemy();
+        switch(currentTargetType)
+        {
+            case TargetingType.FIRST:
+                target = GetFirstEnemy();
+                break;
+            case TargetingType.LAST:
+                target = GetLastEnemy();
+                break;
+            case TargetingType.CLOSE:
+                target = GetClosestEnemy();
+                break;
+        }
     }
     private Transform GetClosestEnemy()
     {
@@ -47,6 +70,47 @@ public class BasicTurret : MonoBehaviour
             }
         }
         return target;  
+    }
+    private Transform GetFirstEnemy()
+    {
+        float progress = 0, leastProgress = float.MaxValue;
+        Transform target = null;
+        float distance  = 0;
+        foreach(GameObject obj in EnemySpawner.instance.GetSubscribers())
+        {
+            distance = Vector2.Distance(transform.position,obj.transform.position);
+            if(distance > radius){continue;}
+            progress = obj.GetComponent<Enemy>().GetProgress();
+            if(progress < leastProgress)
+            {
+                leastProgress = progress;
+                target = obj.transform;
+            }
+        }
+        return target;
+    }
+    private Transform GetLastEnemy()
+    {
+        float progress = 0, mostProgress = 0;
+        Transform target = null;
+        float distance  = 0;
+        foreach(GameObject obj in EnemySpawner.instance.GetSubscribers())
+        {
+            distance = Vector2.Distance(transform.position,obj.transform.position);
+            if(distance > radius){continue;}
+            progress = obj.GetComponent<Enemy>().GetProgress();
+            if(progress > mostProgress)
+            {
+                mostProgress = progress;
+                target = obj.transform;
+            }
+        }
+        return target;
+    }
+    private void ShootProjectile()
+    {
+        GameObject projectile = Instantiate(projectilePrefab,projectileSpawnPos.position,projectileSpawnPos.rotation);
+        projectile.GetComponent<Projectile>().Init(projectileSpeed,projectileDamage,projectileHealth);
     }
     private void OnDrawGizmos()
     {

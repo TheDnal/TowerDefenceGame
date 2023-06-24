@@ -21,6 +21,10 @@ public class Path : MonoBehaviour
         }
         instance = this;
     }
+    void Start()
+    {
+        TileGrid.instance.ObstructPath(pathNodes);
+    }
     public Transform GetPointInPath(int _index)
     {
         if(_index < 0){return null;}
