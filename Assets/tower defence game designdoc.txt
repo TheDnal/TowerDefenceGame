@@ -1,0 +1,24 @@
+
+
+different systems : 
+- mouse controller
+	- Places towers 
+	- deletes towers
+	- inspects towers
+	- Works via drag and drop
+	- is controlled via enum
+	- has a "drag ghost" which is an image of the dragged
+	object that follows the mouse until dropped
+- Shop 
+	- contains items that the player can drag and drop
+	- Each item is a scriptable object that contains :
+		- cost
+		- name
+		- turret prefab
+		- drag ghost prefab
+- Tile grid + tiles
+	- Makes placement neat and orderly
+- Enemy spawner + Path
+	- Spawns enemeies and moves them along path
+- Game manager 
+	- Checks money, health etc, decides when the game ends

@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     private List<GameObject> enemies = new List<GameObject>();
     private float timer = 0;
     public Transform spawnLocation;
-    
+    private bool active = true;
     //Singleton Ref
     public static EnemySpawner instance;
     void Awake()
@@ -28,6 +28,7 @@ public class EnemySpawner : MonoBehaviour
     }
     void Update()
     {
+        if(!active){return;}
         //Update timer
         timer += Time.deltaTime;
         if(timer < 1 / spawnRate){return;}
@@ -41,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
 
-
+    public void SetSpawnerEnabled(bool _enabled){active = _enabled;}
     #region SubscriptionPattern
     public void SubscribeEnemy(GameObject _enemy)
     {

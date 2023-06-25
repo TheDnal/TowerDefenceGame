@@ -16,6 +16,7 @@ public class BasicTurret : MonoBehaviour
     public float projectileSpeed;
     public float projectileDamage;
     public float projectileHealth;
+    public int refundAmount;
     public enum TargetingType
     {
         FIRST,

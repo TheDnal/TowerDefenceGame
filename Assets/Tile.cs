@@ -7,7 +7,7 @@ public class Tile
     //coord in tile grid
     private Vector2Int coord;
     private bool isClear = true;
-
+    private GameObject turret = null;
     public Tile(Vector2Int _coord)
     {
         coord = _coord;
@@ -28,5 +28,8 @@ public class Tile
     }
     public bool GetIsClear(){return isClear;}
     public void SetIsClear(bool _isClear){isClear = _isClear;}
+    public void SetTurret(GameObject _turret){turret = _turret;}
+    public void ClearTurret(){turret = null;}
+    public GameObject GetTurret(){return turret;}
     public Vector2Int GetCoord(){return coord;}
 }
