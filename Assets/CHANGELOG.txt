@@ -1,0 +1,21 @@
+CHANGELOG
+
+version naming convention :
+v0.0.0
+first number is the major version, i.e. release, updates, dlc etc
+second number is minor versions, i.e. QOL, minor additions, new content etc
+third number is tweaks, i.e. bugfixes, code changes etc
+
+
+v0.1.0  : 26/06/23
+    - Basic shop with one turret and sell button
+    - Can place and sell turrets
+    - Can earn money
+    - Can die
+    - Track implemented
+    - Enemies spawn at the start and follow the Track
+
+v0.2.0
+    - Rework of the turret code
+    - Added circleTurret, which shoots projectiles in a 360 degree circle, whilst slowly rotating
+    - Added artillery turret, which has infinite range and fire slow moving projectiles that explode on impact

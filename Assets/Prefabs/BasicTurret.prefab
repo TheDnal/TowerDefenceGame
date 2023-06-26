@@ -47,16 +47,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0b352ba672720849b1be52619258a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetingRefreshRate: 0
   rateOfFire: 0.66
-  turretPivot: {fileID: 5875799592539810982}
+  radius: 3
   projectilePrefab: {fileID: 8175185289233342005, guid: 9dab3694f3d20204393842efb8cba2b8, type: 3}
+  cost: 10
+  refundAmount: 7
+  alwaysShoot: 0
+  targetingRefreshRate: 0
+  turretPivot: {fileID: 5875799592539810982}
   projectileSpawnPos: {fileID: 5875799593571233379}
-  radius: 5
   projectileSpeed: 9
   projectileDamage: 1
   projectileHealth: 1
-  refundAmount: 7
   currentTargetType: 1
 --- !u!61 &1161710399755658364
 BoxCollider2D:
@@ -159,7 +161,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.21698111, g: 0.21391062, b: 0.21391062, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

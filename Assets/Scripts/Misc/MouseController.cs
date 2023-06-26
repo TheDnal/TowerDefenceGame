@@ -28,7 +28,8 @@ public class MouseController : MonoBehaviour
     {
         IDLE,   //inspection and idle 
         BUILD, //Dragging towers onto the map
-        SELL //Selling towers on the map
+        SELL, //Selling towers on the map
+        TARGET //set target for non-direct shooting towers like artillery
     }
     private MouseFunctions currMouseFunction;
     private Vector3 mousePos;
@@ -84,7 +85,7 @@ public class MouseController : MonoBehaviour
         if(nearestTile == null){return;}
         GameObject turret = nearestTile.GetTurret();
         if(turret == null){return;}
-        GameController.instance.ChangeCoins(turret.GetComponent<BasicTurret>().refundAmount);
+        GameController.instance.ChangeCoins(turret.GetComponent<Turret>().refundAmount);
         Destroy(turret.gameObject);
         nearestTile.ClearTurret();
         nearestTile.SetIsClear(true);

@@ -2,21 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicTurret : MonoBehaviour
+public class BasicTurret : Turret
 {
     public float targetingRefreshRate = 0.5f;
     private float targetingTimer = 0;
-    public float rateOfFire = 1;
-    private float rofTimer = 0;
     private Transform target;
     public Transform turretPivot;
-    public GameObject projectilePrefab;
     public Transform projectileSpawnPos;
-    public float radius = 1;
     public float projectileSpeed;
     public float projectileDamage;
     public float projectileHealth;
-    public int refundAmount;
     public enum TargetingType
     {
         FIRST,
@@ -26,41 +21,40 @@ public class BasicTurret : MonoBehaviour
     public TargetingType currentTargetType = TargetingType.FIRST;
     void Update()
     {
+        TurretUpdate(); //update rate of fire
 
         if(target != null)
         {
             turretPivot.right = target.position - transform.position;
         }
-
-        //Update shoot
-        rofTimer+= Time.deltaTime;
-        if(rofTimer >= 1 /rateOfFire && target != null)
-        {
-            rofTimer = 0;
-            ShootProjectile();
-        }
         //Update target
         targetingTimer += Time.deltaTime;
         if(targetingTimer < targetingRefreshRate){return;}
         targetingTimer = 0;
+        target = GetTarget();
+    }
+    private Transform GetTarget()
+    {
+        Transform _target = null;
         switch(currentTargetType)
         {
             case TargetingType.FIRST:
-                target = GetFirstEnemy();
+                _target = GetFirstEnemy();
                 break;
             case TargetingType.LAST:
-                target = GetLastEnemy();
+                _target = GetLastEnemy();
                 break;
             case TargetingType.CLOSE:
-                target = GetClosestEnemy();
+                _target = GetClosestEnemy();
                 break;
         }
+        return _target;
     }
     private Transform GetClosestEnemy()
     {
         float distance, closest = 999;
         Transform target = null;
-        foreach(GameObject obj in EnemySpawner.instance.GetSubscribers())
+        foreach(GameObject obj in enemiesWithinRadius)
         {
             distance = Vector2.Distance(transform.position,obj.transform.position);
             if(distance > radius){continue;}
@@ -77,7 +71,7 @@ public class BasicTurret : MonoBehaviour
         float progress = 0, leastProgress = float.MaxValue;
         Transform target = null;
         float distance  = 0;
-        foreach(GameObject obj in EnemySpawner.instance.GetSubscribers())
+        foreach(GameObject obj in enemiesWithinRadius)
         {
             distance = Vector2.Distance(transform.position,obj.transform.position);
             if(distance > radius){continue;}
@@ -95,7 +89,7 @@ public class BasicTurret : MonoBehaviour
         float progress = 0, mostProgress = 0;
         Transform target = null;
         float distance  = 0;
-        foreach(GameObject obj in EnemySpawner.instance.GetSubscribers())
+        foreach(GameObject obj in enemiesWithinRadius)
         {
             distance = Vector2.Distance(transform.position,obj.transform.position);
             if(distance > radius){continue;}
@@ -108,8 +102,11 @@ public class BasicTurret : MonoBehaviour
         }
         return target;
     }
-    private void ShootProjectile()
+    protected override void OnShoot()
     {
+        target = GetTarget();
+        if(target == null){return;}
+        turretPivot.right = target.position - transform.position;
         GameObject projectile = Instantiate(projectilePrefab,projectileSpawnPos.position,projectileSpawnPos.rotation);
         projectile.GetComponent<Projectile>().Init(projectileSpeed,projectileDamage,projectileHealth);
     }
