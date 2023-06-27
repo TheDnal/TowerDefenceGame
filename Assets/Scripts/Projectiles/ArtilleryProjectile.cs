@@ -41,7 +41,7 @@ public class ArtilleryProjectile : Projectile
         nearbyEnemies = GetEnemiesInRange(killRadius);
         foreach(GameObject enemy in nearbyEnemies)
         {
-            enemy.GetComponent<Enemy>().DestroyEnemy(true);
+            enemy.GetComponent<Enemy>().Damage(damage);
         }
         explosionSprite.enabled = true;
         mainSprite.enabled = false;

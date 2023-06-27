@@ -19,3 +19,29 @@ v0.2.0
     - Rework of the turret code
     - Added circleTurret, which shoots projectiles in a 360 degree circle, whilst slowly rotating
     - Added artillery turret, which has infinite range and fire slow moving projectiles that explode on impact
+
+v0.2.1
+    - Added health and healthbars to enemies
+    - added new triangle enemy
+        - Has 1hp
+        - Moves quickly
+        - $1 on kill
+    - Square enemy stat changes
+        - 1hp => 2hp
+        - movement slowed
+        - $1 => $2 on kill
+    - Added new Pentagon enemy
+        - has 3hp
+        - $3 on kill
+    - Added new Hexagon enemy
+        - 3hp
+        - $3 on kill
+
+    - Current ideas for enemies is that each enemy gets an additional side to their shape, and +1hp and +$1 on kill
+    - Maybe cloaked / healing / reinforced enemies?
+    - next changes should be to overhaul the enemy spawning script:
+        - Display current round
+        - Wave budget gets higher and higher each round (already done)
+        - can spawn multiple types of enemies (already done)
+            - Each enemy can only spawn after a certain round (and have a higher cost)
+            

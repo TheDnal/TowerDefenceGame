@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private float health = 0, damage = 0, speed = 0;
+    protected float health = 0, damage = 0, speed = 0;
     private float maxLifetime = 5;
     private float lifeTimer = 0;
     public void Init(float _speed, float _damage, float _health, float _lifeTime = 0)
@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour
     {
         if(col.gameObject.TryGetComponent<Enemy>(out Enemy _enemy))
         {
-            _enemy.DestroyEnemy(true);
+            _enemy.Damage(damage);
             health --;
             if(health <= 0){Destroy(this.gameObject);}
         }

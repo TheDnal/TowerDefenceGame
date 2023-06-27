@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     /*
@@ -12,9 +13,13 @@ public class Enemy : MonoBehaviour
     public float speed = 5;
     private float progress = 0;
     public float coinsOnKill = 1;
+    public float maxHealth = 2;
+    private float health;
     public TextMeshProUGUI progressText;
+    public EnemyHealthBarSlider healthbar;
     void Start()
     {
+        health = maxHealth;
         targetPoint = Path.instance.GetPointInPath(1).position;
     }
     void Update()
@@ -38,7 +43,7 @@ public class Enemy : MonoBehaviour
             targetPoint = Path.instance.GetPointInPath(currPathPoint).position;
         }
     }
-    public void DestroyEnemy(bool _defeated = false)
+    private void DestroyEnemy(bool _defeated = false)
     {
         if(_defeated){GameController.instance.ChangeCoins(coinsOnKill);}
         EnemySpawner.instance.UnsubscribeEnemy(this.gameObject);
@@ -47,6 +52,12 @@ public class Enemy : MonoBehaviour
     public float GetProgress()
     {
         return progress;
+    }
+    public void Damage(float _damage)
+    {
+        health -= _damage;
+        healthbar.UpdateHealthBar(health,maxHealth);
+        if(health <= 0){DestroyEnemy(true);}
     }
     private float CalculateProgress()
     {

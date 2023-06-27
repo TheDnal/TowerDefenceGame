@@ -2511,7 +2511,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 22aa5a08d9a815d45badc9c4f53f8243, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_FlipX: 0
   m_FlipY: 0
@@ -2519,7 +2519,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1015876977
@@ -3045,9 +3045,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af0c26aff8ca9fd41ab6295ea5fc72aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 1
-  enemyPrefab: {fileID: 7349191870994158313, guid: 5298a485c7555d64cb6011dd7b44a2d8, type: 3}
+  spawnRate: 0.5
+  enemyProfiles:
+  - {fileID: 11400000, guid: ff738e2c1cf25214881605a7885723c0, type: 2}
+  - {fileID: 11400000, guid: 4d8d6c4851549094285c61edef7e909c, type: 2}
+  - {fileID: 11400000, guid: 042c189966a1cce4d8a6f67d959f4ef3, type: 2}
+  - {fileID: 11400000, guid: 6a9777e05ea62da4dbd07b5c7ab06599, type: 2}
+  spawnerSpinner: {fileID: 1146451265}
   spawnLocation: {fileID: 139191957}
+  enemiesPerWave: 10
+  increasePerWave: 5
 --- !u!1 &1146451261
 GameObject:
   m_ObjectHideFlags: 0
@@ -4003,7 +4010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startHealth: 20
-  startMoney: 20
+  startMoney: 100
   healthText: {fileID: 1381966872}
   moneyText: {fileID: 413017832}
   mouseHighlight: {fileID: 0}
